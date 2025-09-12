@@ -56,9 +56,37 @@ body {
 .card {
   background: #fff;
   border-radius: var(--ui-radius);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(51, 27, 27, 0.08);
   padding: var(--ui-spacing);
   margin-bottom: 1.5rem;
+}
+
+/* Add these styles to your style.css */
+
+/* Correct answer animation*/
+.option.correct {
+  background: #22c55e !important;
+  color: #fff !important;
+  border-color: #22c55e !important;
+  animation: correctPulse 0.4s;
+}
+@keyframes correctPulse {
+  0% { box-shadow: 0 0 0 0 #22c55e; }
+  70% { box-shadow: 0 0 10px 6px #22c55e; }
+  100% { box-shadow: 0 0 0 0 #22c55e; }
+}
+
+/* Wrong answer animation*/
+.option.wrong {
+  background: #ef4444 !important;
+  color: #fff !important;
+  border-color: #ef4444 !important;
+  animation: wrongPulse 0.4s;
+}
+@keyframes wrongPulse {
+  0% { box-shadow: 0 0 0 0 #ef4444; }
+  70% { box-shadow: 0 0 10px 6px #ef4444; }
+  100% { box-shadow: 0 0 0 0 #ef4444; }
 }
 
 /* Question */

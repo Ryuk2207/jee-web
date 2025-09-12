@@ -11,20 +11,40 @@
   <!-- Header with title and timer -->
   <header class="exam-header">
     <h1>JEE Mains Mock Test</h1>
-    <div class="timer" id="timer">180:00</div>
+    <div class="timer" id="timer" style="display:none;">180:00</div>
   </header>
 
   <!-- Main container -->
   <main class="container">
+    <!-- Introduction Page (only one!) -->
+    <section class="card" id="intro-card">
+      <h2>Welcome to JEE Mock Test</h2>
+      <p>
+        Select a test type to begin.<br>
+        <strong>Instructions:</strong>
+        <ul style="text-align:left; margin:1rem auto; max-width:500px;">
+          <li>There are multiple choice questions.</li>
+          <li>Click an option to see instant feedback.</li>
+          <li>You can skip questions and return later.</li>
+          <li>Timer starts when you begin the test.</li>
+          <li>Results will be shown at the end with a chart.</li>
+        </ul>
+      </p>
+      <div style="display:flex; flex-direction:column; gap:1rem; max-width:300px; margin:1rem auto;">
+        <button class="btn" id="short-test-btn">Short Test</button>
+        <button class="btn" id="jee-mains-btn">JEE Mains Test</button>
+        <button class="btn" id="jee-advance-btn">JEE Advanced Test</button>
+        <button class="btn" id="chapter-wise-btn">Chapter-wise Test</button>
+      </div>
+    </section>
+
     <!-- Question Card -->
-    <section class="card question-card" id="question-card">
+    <section class="card question-card" id="question-card" style="display:none;">
       <h2 id="question-text">Loading question...</h2>
       <div class="options" id="options"></div>
     </section>
 
-    <!-- ...existing code... -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- ...existing code... -->
 
     <!-- Result Dashboard -->
     <div id="result-dashboard" class="card" style="display:none; text-align:center;">
@@ -42,7 +62,7 @@
       </div>
     </div>
     <!-- Navigation buttons -->
-    <div class="flex">
+    <div class="flex" id="nav-btns" style="display:none;">
       <button class="btn btn-secondary" id="prev-btn">Previous</button>
       <button class="btn" id="next-btn">Next</button>
       <button class="btn" id="skip-btn">Skip</button>

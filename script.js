@@ -1,26 +1,11 @@
-// Mock questions (expand as needed)
-const questions = [
-  {
-    text: "What is the value of sin²θ + cos²θ?",
-    options: ["0", "1", "2", "θ"],
-    answer: 1
-  },
-  {
-    text: "The derivative of x² is?",
-    options: ["x", "2x", "x²", "None of these"],
-    answer: 1
-  },
-  {
-    text: "Which of the following is NOT a prime number?",
-    options: ["2", "3", "4", "5"],
-    answer: 2
-  }
-];
-
+let questions = [];
 let currentQuestion = 0;
-let answers = new Array(questions.length).fill(null);
+let answers = [];
+let timer;
+let timeLeft = 180 * 60;
 
 // Elements
+const introCard = document.getElementById("intro-card");
 const questionText = document.getElementById("question-text");
 const optionsDiv = document.getElementById("options");
 const prevBtn = document.getElementById("prev-btn");
@@ -31,18 +16,23 @@ const restartBtn = document.getElementById("restart-btn");
 const resultDashboard = document.getElementById("result-dashboard");
 const resultSummary = document.getElementById("result-summary");
 const questionCard = document.getElementById("question-card");
-const flexNav = document.querySelector(".flex");
+const flexNav = document.getElementById("nav-btns");
 
 // Popup modal
 const popupModal = document.getElementById("popup-modal");
 const popupMessage = document.getElementById("popup-message");
 const closePopup = document.getElementById("close-popup");
 
-// Timer (3 hours)
-let timeLeft = 180 * 60;
+// Timer
 const timerEl = document.getElementById("timer");
-let timer = setInterval(updateTimer, 1000);
 
+// Test selection buttons
+const shortTestBtn = document.getElementById("short-test-btn");
+const jeeMainsBtn = document.getElementById("jee-mains-btn");
+const jeeAdvanceBtn = document.getElementById("jee-advance-btn");
+const chapterWiseBtn = document.getElementById("chapter-wise-btn");
+
+// Utility
 function updateTimer() {
   if (timeLeft <= 0) {
     clearInterval(timer);
@@ -55,7 +45,6 @@ function updateTimer() {
   timeLeft--;
 }
 
-// Load a question
 function loadQuestion(index) {
   const q = questions[index];
   questionText.textContent = `Q${index + 1}. ${q.text}`;
@@ -72,14 +61,22 @@ function loadQuestion(index) {
   nextBtn.disabled = index === questions.length - 1;
 }
 
-// Select option
 function selectOption(qIndex, optIndex, btn) {
+  if (answers[qIndex] !== null && answers[qIndex] !== undefined) return;
   answers[qIndex] = optIndex;
-  document.querySelectorAll(".option").forEach(b => b.classList.remove("selected"));
-  btn.classList.add("selected");
+  document.querySelectorAll(".option").forEach(b => {
+    b.classList.remove("selected", "correct", "wrong");
+    b.disabled = true;
+  });
+  if (optIndex === questions[qIndex].answer) {
+    btn.classList.add("correct");
+  } else {
+    btn.classList.add("wrong");
+    const correctBtn = document.querySelectorAll(".option")[questions[qIndex].answer];
+    if (correctBtn) correctBtn.classList.add("correct");
+  }
 }
 
-// Navigation
 prevBtn.onclick = () => {
   if (currentQuestion > 0) {
     currentQuestion--;
@@ -93,7 +90,7 @@ nextBtn.onclick = () => {
   }
 };
 skipBtn.onclick = () => {
-  answers[currentQuestion] = null; // Mark as skipped
+  answers[currentQuestion] = null;
   if (currentQuestion < questions.length - 1) {
     currentQuestion++;
     loadQuestion(currentQuestion);
@@ -102,17 +99,15 @@ skipBtn.onclick = () => {
   }
 };
 
-// Submit
 submitBtn.onclick = () => {
   showResultDashboard();
   clearInterval(timer);
 };
 
-// Show result dashboard
 function showResultDashboard() {
   let correct = 0, wrong = 0, skipped = 0;
   questions.forEach((q, i) => {
-    if (answers[i] === null) skipped++;
+    if (answers[i] === null || answers[i] === undefined) skipped++;
     else if (answers[i] === q.answer) correct++;
     else wrong++;
   });
@@ -121,7 +116,6 @@ function showResultDashboard() {
   flexNav.style.display = "none";
   resultDashboard.style.display = "";
 
-  // Chart.js Pie Chart
   const ctx = document.getElementById('resultChart').getContext('2d');
   new Chart(ctx, {
     type: 'pie',
@@ -130,9 +124,9 @@ function showResultDashboard() {
       datasets: [{
         data: [correct, wrong, skipped],
         backgroundColor: [
-          '#22c55e', // green
-          '#ef4444', // red
-          '#fbbf24'  // yellow
+          '#22c55e',
+          '#ef4444',
+          '#fbbf24'
         ]
       }]
     },
@@ -148,7 +142,6 @@ function showResultDashboard() {
     `<p>Correct: <b>${correct}</b> | Wrong: <b>${wrong}</b> | Skipped: <b>${skipped}</b></p>`;
 }
 
-// Restart button logic
 restartBtn.onclick = () => {
   currentQuestion = 0;
   answers = new Array(questions.length).fill(null);
@@ -160,7 +153,6 @@ restartBtn.onclick = () => {
   loadQuestion(currentQuestion);
 };
 
-// Popup logic
 function showPopup(message) {
   popupMessage.textContent = message;
   popupModal.classList.add("show");
@@ -169,5 +161,38 @@ closePopup.onclick = () => {
   popupModal.classList.remove("show");
 };
 
-// Initial load
-loadQuestion(currentQuestion);
+// Test selection logic
+function startTestWithFile(fileName) {
+  fetch(fileName)
+    .then(res => res.json())
+    .then(data => {
+      questions = data;
+      answers = new Array(questions.length).fill(null);
+      currentQuestion = 0;
+      timeLeft = 180 * 60;
+      introCard.style.display = "none";
+      questionCard.style.display = "";
+      flexNav.style.display = "";
+      timerEl.style.display = "";
+      resultDashboard.style.display = "none";
+      timer = setInterval(updateTimer, 1000);
+      loadQuestion(currentQuestion);
+    })
+    .catch(() => {
+      questionText.textContent = "Failed to load questions.";
+      optionsDiv.innerHTML = "";
+    });
+}
+
+// Button events
+shortTestBtn.onclick = () => startTestWithFile('short-test.json');
+jeeMainsBtn.onclick = () => startTestWithFile('jee-mains.json');
+jeeAdvanceBtn.onclick = () => startTestWithFile('jee-advance.json');
+chapterWiseBtn.onclick = () => startTestWithFile('chapter-wise.json');
+
+// On page load, show intro only
+introCard.style.display = "";
+questionCard.style.display = "none";
+flexNav.style.display = "none";
+resultDashboard.style.display = "none";
+timerEl.style.display = "none";
