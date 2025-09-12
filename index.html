@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JEE Mains Mock Test</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Header with title and timer -->
+  <header class="exam-header">
+    <h1>JEE Mains Mock Test</h1>
+    <div class="timer" id="timer">180:00</div>
+  </header>
+
+  <!-- Main container -->
+  <main class="container">
+    <!-- Question Card -->
+    <section class="card question-card" id="question-card">
+      <h2 id="question-text">Loading question...</h2>
+      <div class="options" id="options"></div>
+    </section>
+
+    <!-- ...existing code... -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- ...existing code... -->
+
+    <!-- Result Dashboard -->
+    <div id="result-dashboard" class="card" style="display:none; text-align:center;">
+      <h2>Test Result</h2>
+      <canvas id="resultChart" width="300" height="300"></canvas>
+      <div id="result-summary"></div>
+      <button class="btn" id="restart-btn">Restart Test</button>
+    </div>
+
+    <!-- Popup Modal -->
+    <div id="popup-modal" class="popup-modal">
+      <div class="popup-content">
+        <span id="popup-message"></span>
+        <button class="btn" id="close-popup">OK</button>
+      </div>
+    </div>
+    <!-- Navigation buttons -->
+    <div class="flex">
+      <button class="btn btn-secondary" id="prev-btn">Previous</button>
+      <button class="btn" id="next-btn">Next</button>
+      <button class="btn" id="skip-btn">Skip</button>
+      <button class="btn btn-secondary" id="submit-btn">Submit Test</button>
+    </div>
+  </main>
+</body>
+</html>
