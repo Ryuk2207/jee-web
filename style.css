@@ -8,6 +8,82 @@
   border: 0;
 }
 
+/* ...existing code... */
+
+/* Intro Cards Layout */
+.intro-cards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1100px;
+}
+.intro-card {
+  background: #000000;
+  border-radius: 2rem;
+  box-shadow: 0 4px 24px rgba(51, 27, 27, 0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+  text-align: center;
+  min-width: 420px;
+  max-width: 450px;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.intro-icon {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1.2rem;
+}
+.welcome-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  letter-spacing: 1px;
+  color: #4f46e5;
+}
+.intro-desc {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #374151;
+  opacity: 0.95;
+}
+.intro-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Button lift effect */
+.btn.lift {
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(51, 27, 27, 0.08);
+  font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+}
+.btn.lift:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(51, 27, 27, 0.18);
+}
+
+/* ...existing code... */
+
+/* Button lift effect */
+.btn.lift {
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(51, 27, 27, 0.08);
+}
+.btn.lift:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(51, 27, 27, 0.18);
+}
+
+/* ...existing code... */
+
 /* Theme Variables */
 :root {
   --ui-primary: #0f766e;
@@ -89,111 +165,185 @@ body {
   100% { box-shadow: 0 0 0 0 #ef4444; }
 }
 
-/* Question */
-.question-card h2 {
-  margin-bottom: 1rem;
+/* ...existing code... */
+
+/* Use intro-card styles for question-card */
+.question-card {
+  background: #000000;
+  border-radius: 2rem;
+  box-shadow: 0 4px 24px rgba(51, 27, 27, 0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+  text-align: center;
+  min-width: 420px;
+  max-width: 450px;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
 }
-.options {
-  display: grid;
-  gap: 0.75rem;
+.question-card .options {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
 }
-.option {
-  background: var(--ui-bg-muted);
-  padding: 0.75rem 1rem;
-  border-radius: var(--ui-radius);
-  border: 1px solid var(--ui-border);
+.question-card .option {
+  background: #222;
+  color: #fff;
+  border-radius: 1rem;
+  padding: 0.8rem 1.2rem;
+  width: 90%;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  border: 2px solid transparent;
+  transition: background 0.2s, border 0.2s;
+  font-size: 1rem;
 }
-.option:hover {
-  background: #f3f4f6;
-  border-color: var(--ui-primary);
-}
-.option.selected {
-  background: var(--ui-primary);
-  color: white;
-  border-color: var(--ui-primary);
+.question-card .option:hover {
+  background: #4f46e5;
+  border-color: #fff;
 }
 
 /* ...existing code... */
 
 /* Popup Modal */
+/* Popup Modal - Centered, Animated, Colorful */
 .popup-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.5);
-  display: none; /* Hidden by default */
-  justify-content: center;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
   align-items: center;
-  z-index: 1000;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(44, 62, 80, 0.25);
   transition: opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
 }
 .popup-modal.show {
-  display: flex;
-  animation: fadeIn 0.3s;
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  opacity: 1;
+  pointer-events: auto;
 }
 .popup-content {
-  background: var(--ui-bg);
+  background: linear-gradient(135deg, #4f46e5 0%, #22c55e 100%);
+  color: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(51, 27, 27, 0.18);
   padding: 2rem 2.5rem;
-  border-radius: var(--ui-radius);
+  min-width: 280px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  min-width: 250px;
-  font-size: 1.1rem;
-  animation: popScale 0.3s;
+  font-size: 1.15rem;
+  font-weight: 600;
+  animation: popupBounce 0.5s;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
-@keyframes popScale {
-  from { transform: scale(0.85); }
-  to { transform: scale(1); }
+.popup-content.special {
+  background: linear-gradient(135deg, #fbbf24 0%, #f43f5e 100%);
+  color: #fff;
+  border: 2px solid #f43f5e;
+  animation: shake 0.4s;
 }
-#popup-message {
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
+
+@keyframes popupBounce {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
 }
-#close-popup {
-  background: var(--ui-primary);
-  color: white;
-  padding: 0.5rem 1.2rem;
-  border-radius: var(--ui-radius);
-  cursor: pointer;
-  border: none;
-  font-size: 1rem;
-  transition: background 0.2s;
-}
-#close-popup:hover {
-  background: #115e59;
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+  100% { transform: translateX(0); }
 }
 
 /* ...existing code... */
 
-/* Buttons */
-.flex {
-  display: flex;
-  gap: 1rem;
-}
-.btn {
-  background: var(--ui-primary);
-  color: white;
-  font-weight: 500;
+/* Capsule style for OK button in popup */
+#close-popup.btn {
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f43f5e 0%, #fbbf24 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.7rem 2.2rem;
   border: none;
-  border-radius: var(--ui-radius);
-  padding: 0.6rem 1.2rem;
-  cursor: pointer;
-  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.15);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  outline: none;
+  margin: 0 auto;
+  display: inline-block;
 }
-.btn:hover {
-  background: #115e59;
+
+#close-popup.btn:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f43f5e 100%);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.18);
 }
-.btn-secondary {
-  background: var(--ui-secondary);
+
+/* ...existing code... */
+
+#result-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 4px 24px rgba(51, 27, 27, 0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 2rem auto;
+  max-width: 500px;
 }
-.btn-secondary:hover {
-  background: #3730a3;
+
+#resultChart {
+  display: block;
+  margin: 0 auto 1.5rem auto;
 }
+
+
+/* Center navigation buttons and style them */
+#nav-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem auto 0 auto;
+}
+
+#nav-btns .btn {
+  background: linear-gradient(135deg, #4f46e5 0%, #22c55e 100%);
+  color: #fff;
+  border-radius: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+  box-shadow: 0 2px 8px rgba(51, 27, 27, 0.12);
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+}
+
+#nav-btns .btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  background: linear-gradient(135deg, #22c55e 0%, #4f46e5 100%);
+  box-shadow: 0 8px 24px rgba(51, 27, 27, 0.18);
+}
+
+#nav-btns .btn-secondary {
+  background: linear-gradient(135deg, #f59e42 0%, #f43f5e 100%);
+  color: #fff;
+}
+
+#nav-btns .btn-secondary:hover {
+  background: linear-gradient(135deg, #f43f5e 0%, #f59e42 100%);
+}
+
+/* ...existing code... */

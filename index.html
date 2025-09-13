@@ -9,42 +9,52 @@
 </head>
 <body>
   <!-- Header with title and timer -->
-  <header class="exam-header">
-    <h1>JEE Mains Mock Test</h1>
+  <header class="exam-header" style="text-align: center;"></header>
+    <h1 id="main-title" style="color: var(--main-title-color, #000000); display: inline-block;">𝖂𝕰𝕷𝕮𝕺𝕸𝕰 𝕿𝕺 𝕹𝕰𝖃𝕿 𝕿𝕰𝕾𝕿</h1>
     <div class="timer" id="timer" style="display:none;">180:00</div>
-  </header>
-
-  <!-- Main container -->
-  <main class="container">
-    <!-- Introduction Page (only one!) -->
-    <section class="card" id="intro-card">
-      <h2>Welcome to JEE Mock Test</h2>
-      <p>
-        Select a test type to begin.<br>
-        <strong>Instructions:</strong>
-        <ul style="text-align:left; margin:1rem auto; max-width:500px;">
-          <li>There are multiple choice questions.</li>
-          <li>Click an option to see instant feedback.</li>
-          <li>You can skip questions and return later.</li>
-          <li>Timer starts when you begin the test.</li>
-          <li>Results will be shown at the end with a chart.</li>
-        </ul>
-      </p>
-      <div style="display:flex; flex-direction:column; gap:1rem; max-width:300px; margin:1rem auto;">
-        <button class="btn" id="short-test-btn">Short Test</button>
-        <button class="btn" id="jee-mains-btn">JEE Mains Test</button>
-        <button class="btn" id="jee-advance-btn">JEE Advanced Test</button>
-        <button class="btn" id="chapter-wise-btn">Chapter-wise Test</button>
+    
+    <!-- ...existing code... -->
+    
+    <!-- ...existing code... -->
+    <section class="intro-cards">
+      <div class="intro-card" id="intro-card">
+        <img src="https://img.freepik.com/premium-vector/letter-logo-monogram-typography-with-arrow-vector-illustration_510538-280.jpg?w=200" alt="Welcome Image" class="welcome-image">
+        <h2 class="welcome-title">Welcome!</h2>
+        <p class="intro-desc">
+          <span style="color: white;">
+            Ready to challenge yourself?<br>
+            Choose a test type below to begin your JEE journey.
+          </span>
+        </p>
+        <div class="intro-btns">
+          <button class="btn lift" id="short-test-btn" style="background-color: var(--short-test-color, #6cbb11);">Short Test</button>
+          <button class="btn lift" id="jee-mains-btn" style="background-color: var(--jee-mains-color, #8db10b);">JEE Mains Test</button>
+          <button class="btn lift" id="jee-advance-btn" style="background-color: var(--jee-advance-color, #85ac1b);">JEE Advanced Test</button>
+          <button class="btn lift" id="chapter-wise-btn" style="background-color: var(--chapter-wise-color, #60a321);">Chapter-wise Test</button>
+        </div>
       </div>
     </section>
+    <!-- ...existing code... -->
 
-    <!-- Question Card -->
-    <section class="card question-card" id="question-card" style="display:none;">
-      <h2 id="question-text">Loading question...</h2>
-      <div class="options" id="options"></div>
+    <!-- ...existing code... -->
+    <head>
+      <!-- ...existing code... -->
+      <link rel="stylesheet" href="style.css">
+      <!-- Add Chart.js CDN below -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script defer src="script.js"></script>
+    </head>
+    <!-- ...existing code... -->
+
+    <!-- ...existing code... -->
+    <section class="intro-cards" id="question-section" style="display:none;">
+      <div class="intro-card question-card" id="question-card">
+        <img src="https://img.icons8.com/color/96/online-test.png" alt="Question Icon" class="intro-icon"/>
+        <h2 id="question-text">Loading question...</h2>
+        <div class="options" id="options"></div>
+      </div>
     </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- ...existing code... -->
 
     <!-- Result Dashboard -->
     <div id="result-dashboard" class="card" style="display:none; text-align:center;">
@@ -68,6 +78,5 @@
       <button class="btn" id="skip-btn">Skip</button>
       <button class="btn btn-secondary" id="submit-btn">Submit Test</button>
     </div>
-  </main>
 </body>
 </html>

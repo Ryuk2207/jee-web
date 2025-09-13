@@ -4,6 +4,8 @@ let answers = [];
 let timer;
 let timeLeft = 180 * 60;
 
+
+
 // Elements
 const introCard = document.getElementById("intro-card");
 const questionText = document.getElementById("question-text");
@@ -15,6 +17,7 @@ const submitBtn = document.getElementById("submit-btn");
 const restartBtn = document.getElementById("restart-btn");
 const resultDashboard = document.getElementById("result-dashboard");
 const resultSummary = document.getElementById("result-summary");
+const questionSection = document.getElementById("question-section");
 const questionCard = document.getElementById("question-card");
 const flexNav = document.getElementById("nav-btns");
 
@@ -155,14 +158,27 @@ restartBtn.onclick = () => {
 
 function showPopup(message) {
   popupMessage.textContent = message;
+  if (message === "No more questions to skip!") {
+    popupModal.querySelector('.popup-content').classList.add('special');
+  } else {
+    popupModal.querySelector('.popup-content').classList.remove('special');
+  }
   popupModal.classList.add("show");
 }
 closePopup.onclick = () => {
   popupModal.classList.remove("show");
+  popupModal.querySelector('.popup-content').classList.remove('special');
 };
 
 // Test selection logic
 function startTestWithFile(fileName) {
+  // Hide intro section, show question section
+  introCard.parentElement.style.display = "none";
+  questionSection.style.display = "";
+  questionCard.style.display = "";
+  flexNav.style.display = "";
+  timerEl.style.display = "";
+  resultDashboard.style.display = "none";
   fetch(fileName)
     .then(res => res.json())
     .then(data => {
@@ -170,11 +186,6 @@ function startTestWithFile(fileName) {
       answers = new Array(questions.length).fill(null);
       currentQuestion = 0;
       timeLeft = 180 * 60;
-      introCard.style.display = "none";
-      questionCard.style.display = "";
-      flexNav.style.display = "";
-      timerEl.style.display = "";
-      resultDashboard.style.display = "none";
       timer = setInterval(updateTimer, 1000);
       loadQuestion(currentQuestion);
     })
